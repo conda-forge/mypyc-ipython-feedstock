@@ -24,14 +24,7 @@ requirements:
     - ipython
     - mypy >=0.800
     - python >=3.6
-    - __{{ noarch_platform }}
-    # TODO: remove after https://github.com/conda-forge/mypy-feedstock/issues/83
-    {% if noarch_platform == "linux" %}
-    - gcc_linux-64
-    {% elif noarch_platform == "osx" %}
-    - clang_osx-64
-    {% elif noarch_platform == "win" %}
-    - m2w64-toolchain
+    - c-compiler
     {% endif %}
 
 test:
