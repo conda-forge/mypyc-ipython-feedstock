@@ -14,7 +14,7 @@ source:
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
@@ -24,6 +24,7 @@ requirements:
     - ipython
     - mypy >=0.800
     - python >=3.6
+    - __{{ noarch_platform }}
     # TODO: remove after https://github.com/conda-forge/mypy-feedstock/issues/83
     {% if noarch_platform == "linux" %}
     - gcc_linux-64
