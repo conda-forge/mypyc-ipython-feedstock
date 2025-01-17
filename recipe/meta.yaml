@@ -12,34 +12,36 @@ source:
     sha256: e09fe0518793ad90e295d386047f1afedecf600d96953b4402d967bc285e4ea7
 
 build:
-  noarch: python
-  script: {{ PYTHON }} -m pip install . -vv
   number: 3
+  noarch: python
+  script:
+    - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation --disable-pip-version-check
 
 requirements:
   host:
-    - python {{ python_min }}
     - pip
+    - python {{ python_min }}
+    - setuptools
   run:
+    - c-compiler
     - ipython
     - mypy >=0.800
     - python >={{ python_min }}
-    - c-compiler
 
 test:
   files:
     - test_mypyc_ipython.py
+  requires:
+    - ipython
+    - pip
+    - coverage
+    - python {{ python_min }}
   imports:
     - mypyc_ipython
   commands:
     - pip check
     - coverage run --branch --source mypyc_ipython -m IPython test_mypyc_ipython.py
     - coverage report --show-missing --skip-covered --fail-under 88
-  requires:
-    - ipython
-    - pip
-    - coverage
-    - python {{ python_min }}
 
 about:
   home: https://github.com/c-bata/mypyc_ipython
