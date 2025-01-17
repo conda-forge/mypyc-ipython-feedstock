@@ -5,7 +5,7 @@ package:
   version: {{ version }}
 
 source:
-  - url: https://pypi.io/packages/source/m/mypyc-ipython/mypyc_ipython-{{ version }}.tar.gz
+  - url: https://pypi.org/packages/source/m/mypyc-ipython/mypyc_ipython-{{ version }}.tar.gz
     sha256: e265704ac98c3c42df404d7066f8c122a6fcb4ef6d88410ed84d60979d1b6bea
   # TODO: remove after https://github.com/c-bata/mypyc_ipython/pull/1
   - url: https://raw.githubusercontent.com/c-bata/mypyc_ipython/v{{ version }}/LICENSE
@@ -14,16 +14,16 @@ source:
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 2
+  number: 3
 
 requirements:
   host:
-    - python >=3.6
+    - python {{ python_min }}
     - pip
   run:
     - ipython
     - mypy >=0.800
-    - python >=3.6
+    - python >={{ python_min }}
     - c-compiler
 
 test:
@@ -39,6 +39,7 @@ test:
     - ipython
     - pip
     - coverage
+    - python {{ python_min }}
 
 about:
   home: https://github.com/c-bata/mypyc_ipython
